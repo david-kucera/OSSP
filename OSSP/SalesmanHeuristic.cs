@@ -8,11 +8,11 @@ public static class SalesmanHeuristic
     
     public static List<int> Solve(int[][] dij)
     {
-        Dij = dij;
+        Dij = dij ?? throw new InvalidOperationException("dij is null!");
         for (int i = 0; i < dij.Length; i++) Nezaradene.Add(i);
 
         // Initial route
-        int routeStartEndIndex = 0;
+        const int routeStartEndIndex = 0;
         Path.Add(routeStartEndIndex);
         Nezaradene.Remove(routeStartEndIndex);
         
@@ -32,8 +32,25 @@ public static class SalesmanHeuristic
         return Path;
     }
 
+    public static int GetPathCost()
+    {
+        if (Dij is null) throw new InvalidOperationException("Dij is null!");
+        int pathCost = 0;
+
+        for (int i = 0; i < Path.Count - 1; i++)
+        {
+            var first = Path[i];
+            var second = Path[i + 1];
+            var cost = Dij[first][second];
+            pathCost += cost;
+        }
+        
+        return pathCost;
+    }
+
     private static int GetMostDistantNodeFrom(int index)
     {
+        if (Dij is null) throw new InvalidOperationException("Dij is null!");
         var row = Dij[index];
 
         while (true)

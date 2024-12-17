@@ -27,8 +27,10 @@ internal static class Program
         string[] lines = File.ReadAllLines(ZA);
         int[][] dij = MatrixLoader.Load(lines);
         List<int> result = SalesmanHeuristic.Solve(dij);
+        int cost = SalesmanHeuristic.GetPathCost();
         string line = result.Aggregate(string.Empty, (current, node) => current + (node + "-"));
         Console.WriteLine($"Path: -{line}");
+        Console.WriteLine($"Path cost: {cost}");
     }
 
     private static void PrintMatrix(int[][] matrix)
