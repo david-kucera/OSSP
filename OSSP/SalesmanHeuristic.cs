@@ -3,6 +3,7 @@ namespace OSSP;
 public static class SalesmanHeuristic
 {
     private static int[][] Dij = null!;
+    private static int D => GetPathCost();
     private static List<int> Nezaradene = [];
     private static List<int> Path = [];
     
@@ -27,20 +28,46 @@ public static class SalesmanHeuristic
         Path.Add(routeStartEndIndex);
         
         // Algorithm
-        // TODO
+        while (Nezaradene.Count > 0)
+        {
+            int bestNode = -1;
+            int bestPosition = -1;
+            int minIncrease = int.MaxValue;
+
+            foreach (var node in Nezaradene)
+            {
+                for (int i = 0; i < Path.Count - 1; i++)
+                {
+                    int currentNode = Path[i];
+                    int nextNode = Path[i + 1];
+                    int increase = Dij[currentNode][node] + Dij[node][nextNode] - Dij[currentNode][nextNode];
+
+                    if (increase < minIncrease)
+                    {
+                        minIncrease = increase;
+                        bestNode = node;
+                        bestPosition = i + 1;
+                    }
+                }
+            }
+            
+            Path.Insert(bestPosition, bestNode);
+            Nezaradene.Remove(bestNode);
+        }
         
         return Path;
     }
 
-    public static int GetPathCost()
+    public static int GetPathCost(List<int>? path = null)
     {
         if (Dij is null) throw new InvalidOperationException("Dij is null!");
+        if (path is null) path = Path;
         int pathCost = 0;
 
-        for (int i = 0; i < Path.Count - 1; i++)
+        for (int i = 0; i < path.Count - 1; i++)
         {
-            var first = Path[i];
-            var second = Path[i + 1];
+            var first = path[i];
+            var second = path[i + 1];
             var cost = Dij[first][second];
             pathCost += cost;
         }
