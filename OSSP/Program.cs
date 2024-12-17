@@ -7,14 +7,41 @@
 /// Simulated Annealing - Inverzia podreťazcov dĺžky 5
 /// SA parametre: tmax = 10_000, u = 40, q = 50
 /// </summary>
-class Program
+internal static class Program
 {
     #region Constants
-    public static string ZA = "../data/ZA.txt";
+    public const string BA = "../data/BA.txt";
+    public const string BB = "../data/BB.txt";
+    public const string KE = "../data/KE.txt";
+    public const string NR = "../data/NR.txt";
+    public const string PO = "../data/PO.txt";
+    public const string TN = "../data/TN.txt";
+    public const string TT = "../data/TT.txt";
+    public const string ZA = "../data/ZA.txt";
+    public static readonly List<string> MATRICES = [BA, BB, KE, NR, PO, TN, TT, ZA];
     #endregion // Constants
-    
-    static void Main(string[] args)
+
+    private static void Main()
     {
         Console.WriteLine("Začiatok programu...");
+        Console.WriteLine(ZA);
+        CheckFile(ZA);
+        var lines = File.ReadAllLines(ZA);
+        var dij = MatrixLoader.Load(lines);
+        PrintMatrix(dij);
+    }
+
+    private static void PrintMatrix(int[][] matrix)
+    {
+        Console.WriteLine($"Matrix dimensions: {matrix.Length}, {matrix[0].Length}");
+        foreach (var row in matrix)
+        {
+            Console.WriteLine($"{string.Join(", ", row)}");
+        }
+    }
+
+    private static void CheckFile(string path)
+    {
+        if (!File.Exists(path)) throw new FileNotFoundException();
     }
 }
