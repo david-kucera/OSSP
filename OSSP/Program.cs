@@ -23,12 +23,12 @@ internal static class Program
 
     private static void Main()
     {
-        Console.WriteLine("Začiatok programu...");
-        Console.WriteLine(ZA);
         CheckFile(ZA);
-        var lines = File.ReadAllLines(ZA);
-        var dij = MatrixLoader.Load(lines);
-        PrintMatrix(dij);
+        string[] lines = File.ReadAllLines(ZA);
+        int[][] dij = MatrixLoader.Load(lines);
+        List<int> result = SalesmanHeuristic.Solve(dij);
+        string line = result.Aggregate(string.Empty, (current, node) => current + (node + "-"));
+        Console.WriteLine($"Path: -{line}");
     }
 
     private static void PrintMatrix(int[][] matrix)
@@ -42,6 +42,7 @@ internal static class Program
 
     private static void CheckFile(string path)
     {
+        Console.WriteLine($"Path: {path}");
         if (!File.Exists(path)) throw new FileNotFoundException();
     }
 }
