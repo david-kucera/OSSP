@@ -23,14 +23,27 @@ internal static class Program
 
     private static void Main()
     {
+        // Načítanie vstupných dát zo súboru
         CheckFile(ZA);
         string[] lines = File.ReadAllLines(ZA);
         int[][] dij = MatrixLoader.Load(lines);
+        
+        // Heuristika obchodného cestujúceho - duálna heuristika
         List<int> result = SalesmanHeuristic.Solve(dij);
         int cost = SalesmanHeuristic.GetPathCost();
+        
+        Console.WriteLine("After heuristic:");
         string line = result.Aggregate(string.Empty, (current, node) => current + (node + "-"));
         Console.WriteLine($"Path: -{line}");
         Console.WriteLine($"Path cost: {cost}");
+        
+        // Metaheuristika Simulated Annealing
+        var metaResult = SimulatedAnnealing.Solve(result);
+        int costSA = SalesmanHeuristic.GetPathCost(metaResult);
+        Console.WriteLine("After metaheuristic:");
+        string line2 = metaResult.Aggregate(string.Empty, (current, node) => current + (node + "-"));
+        Console.WriteLine($"Path after SA: -{line2}");
+        Console.WriteLine($"Path cost: {costSA}");
     }
 
     private static void PrintMatrix(int[][] matrix)
