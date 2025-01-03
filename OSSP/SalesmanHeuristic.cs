@@ -2,11 +2,14 @@ namespace OSSP;
 
 public static class SalesmanHeuristic
 {
+    #region Class members
     private static int[][] Dij = null!;
     private static int D => GetPathCost();
     private static List<int> Nezaradene = [];
     private static List<int> Path = [];
+    #endregion // Class members
     
+    #region Public functions
     public static List<int> Solve(int[][] dij)
     {
         Dij = dij ?? throw new InvalidOperationException("dij is null!");
@@ -74,7 +77,9 @@ public static class SalesmanHeuristic
         
         return pathCost;
     }
+    #endregion // Public functions
 
+    #region Private functions
     private static int GetMostDistantNodeFrom(int index)
     {
         if (Dij is null) throw new InvalidOperationException("Dij is null!");
@@ -93,4 +98,5 @@ public static class SalesmanHeuristic
             }
         }
     }
+    #endregion // Private functions
 } 

@@ -14,6 +14,7 @@ public static class SimulatedAnnealing
     private static readonly Random _rand = new Random();
     #endregion // Class members
     
+    #region Public functions
     public static List<int> Solve(List<int> x_0)
     {
         // 0. krok
@@ -94,7 +95,7 @@ public static class SimulatedAnnealing
 
     public static List<int[]> GetOkolie(List<int> xStar)
     {
-        List<int[]> okolie = new List<int[]>();
+        List<int[]> okolie = [];
 
         for (int i = 1; i < xStar.Count - DLZKA_INV_RETAZCA; i++)
         {
@@ -107,4 +108,5 @@ public static class SimulatedAnnealing
         
         return okolie;
     }
+    #endregion // Public functions
 }

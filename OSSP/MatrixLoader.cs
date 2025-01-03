@@ -2,6 +2,7 @@ namespace OSSP;
 
 public static class MatrixLoader
 {
+    #region Public functions
     public static int[][] Load(string[] lines)
     {
         var length = int.Parse(lines[0]);
@@ -19,4 +20,16 @@ public static class MatrixLoader
         
         return matrix;
     }
+    #endregion // Public functions
+
+    #region Private functions
+    private static void PrintMatrix(int[][] matrix)
+    {
+        Console.WriteLine($"Matrix dimensions: {matrix.Length}, {matrix[0].Length}");
+        foreach (var row in matrix)
+        {
+            Console.WriteLine($"{string.Join(", ", row)}");
+        }
+    }
+    #endregion // Private functions
 }

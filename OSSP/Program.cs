@@ -46,15 +46,6 @@ internal static class Program
         Console.WriteLine($"Path cost: {costSA}");
     }
 
-    private static void PrintMatrix(int[][] matrix)
-    {
-        Console.WriteLine($"Matrix dimensions: {matrix.Length}, {matrix[0].Length}");
-        foreach (var row in matrix)
-        {
-            Console.WriteLine($"{string.Join(", ", row)}");
-        }
-    }
-
     private static void CheckFile(string path)
     {
         Console.WriteLine($"Path: {path}");
